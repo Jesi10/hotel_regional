@@ -1,4 +1,4 @@
-# 🏨 Base de Datos – Gestión del Hotel Regional
+# 🏨 Sistema de gestión hotelera: Hotel Regional
 
 Proyecto orientado al **diseño e implementación de una base de datos relacional para la gestión de un hotel**, desarrollado utilizando **MySQL** y **MySQL Workbench**.  
 El objetivo principal es aplicar conceptos de **modelado de datos, normalización y creación de objetos de base de datos**.
@@ -6,7 +6,7 @@ El objetivo principal es aplicar conceptos de **modelado de datos, normalizació
 ---
 
 
-# 📌 Objetivos del proyecto
+# 📌 Objetivos
 
 - Diseñar una base de datos relacional para mejorar la **administración y gestión de la información del Hotel Regional**.
 - Aplicar principios de **modelado entidad–relación (DER)**.
@@ -97,28 +97,28 @@ Respetar el orden de carga de los archivos para mantener la **integridad referen
 ---
 
 # 📂 Estructura del proyecto
-bd_hotel_regional
-│
-├── sql
-│ ├── hotel_regional.sql
-│ ├── 01_Creacion_Vistas_SP_Triggers_Funciones.sql
-│ └── 02_Insercion_Datos.sql
-│
-├── csv_archivos
-│ ├── procedencias.csv
-│ ├── habitaciones.csv
-│ ├── servicios.csv
-│ ├── huespedes.csv
-│ ├── reservas.csv
-│ ├── reserva_servicio.csv
-│ ├── pagos.csv
-│ └── quejas.csv
-│
-├── docs
-│ └── Hotelregional_JesicaLlanos.pdf
-│
-└── README.md
 
+El proyecto tiene 3 carpetas y un archivo `README.md`:
+
+1. **sql**: Contiene los siguientes archivos SQL:  
+   - `hotel_regional.sql`  
+   - `01_Creacion_Vistas_SP_Triggers_Funciones.sql`  
+   - `02_Insercion_Datos.sql`  
+
+2. **csv_archivos**: Contiene los archivos `.csv` para ser insertados mediante wizard:  
+   - `procedencias.csv`  
+   - `habitaciones.csv`  
+   - `servicios.csv`  
+   - `huespedes.csv`  
+   - `reservas.csv`  
+   - `reserva_servicio.csv`  
+   - `pagos.csv`  
+   - `quejas.csv`  
+
+3. **docs**: Contiene la documentación en PDF:  
+   - `Hotelregional_JesicaLlanos.pdf`  
+
+4. **README.md**: Este archivo con la descripción y estructura del proyecto.  
 # 📊 Documentación
 
 El repositorio incluye un documento PDF con la explicación del diseño de la base de datos.
