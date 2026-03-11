@@ -1,4 +1,4 @@
-# 🏨 Sistema de gestión hotelera: Hotel Regional
+# 🏨 Sistema de gestión hotelera - MySQLWorkbench
 
 Proyecto orientado al **diseño e implementación de una base de datos relacional para la gestión de un hotel**, desarrollado utilizando **MySQL** y **MySQL Workbench**.  
 El objetivo principal es aplicar conceptos de **modelado de datos, normalización y creación de objetos de base de datos**.
