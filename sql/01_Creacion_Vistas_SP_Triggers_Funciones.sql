@@ -3,34 +3,33 @@ USE hotel_regional;
 -- ======================================
 -- VISTAS
 -- ======================================
--- Vista 1:
-CREATE OR REPLACE VIEW vista_servicios_reservas AS
+-- Vista 1: Servicios más utilizados por los huéspedes
+CREATE OR REPLACE VIEW  vw_servicios_2025 AS
 SELECT 
-    r.reserva_id,
-    h.nombre AS huesped,
-    s.nombre AS servicio,
-    rs.cantidad,
-    (s.precio * rs.cantidad) AS subtotal
+    s.nombre,
+    SUM(rs.cantidad) AS total_consumido
 FROM reserva_servicio rs
-JOIN reservas r ON rs.reserva_id = r.reserva_id
 JOIN servicios s ON rs.servicio_id = s.servicio_id
-JOIN huespedes h ON r.huesped_id = h.huesped_id;
+JOIN reservas r ON rs.reserva_id = r.reserva_id
+WHERE YEAR(r.fecha_entrada) = 2025
+GROUP BY s.nombre;
 
--- Vista 2: Vista de quejas no resueltas
-CREATE OR REPLACE VIEW vista_quejas_no_resueltas AS
+
+-- Vista 2: Estado de las quejas
+CREATE OR REPLACE VIEW vw_estado_quejas_2025 AS
 SELECT 
-    q.queja_id,
-    h.nombre AS huesped,
-    r.reserva_id,
-    q.descripcion,
-    q.fecha,
-    q.estado,
-    e.nombre AS empleado_responsable
-FROM quejas q
-JOIN reservas r ON q.reserva_id = r.reserva_id
-JOIN huespedes h ON q.huesped_id = h.huesped_id
-LEFT JOIN empleados e ON q.empleado_id = e.empleado_id
-WHERE q.estado <> 'resuelta';
+    CASE 
+        WHEN estado = 'resuelta' THEN 'Resueltas'
+        ELSE 'No resueltas'
+    END AS estado_general,
+    COUNT(*) AS cantidad,
+    ROUND(
+        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 
+        2
+    ) AS porcentaje
+FROM quejas
+WHERE YEAR(fecha) = 2025
+GROUP BY estado_general;
 
 
 -- Vista 3: Vista procedencias del año 2025
@@ -70,20 +69,37 @@ LEFT JOIN huespedes ON r.huesped_id = huespedes.huesped_id
 ORDER BY h.numero;
 
 
--- Vista 5: Vista  duración de la estadía por canal de reserva 
-CREATE OR REPLACE VIEW vista_duracion_canal AS
-SELECT
-    c.canal_id, 
+-- Vista 5: Vista  procedencia de los huespedes por canal de reserva 
+CREATE VIEW vw_procedencia_canal_2025 AS
+SELECT 
+    p.descripcion AS procedencia,
     c.nombre AS canal,
-    YEAR(r.fecha_entrada) AS anio,
-    COUNT(r.reserva_id) AS total_reservas,
-    ROUND(AVG(DATEDIFF(r.fecha_salida, r.fecha_entrada)),2) AS duracion_promedio
+    COUNT(*) AS total_reservas
 FROM reservas r
+JOIN huespedes h ON r.huesped_id = h.huesped_id
+JOIN procedencias p ON h.procedencia_id = p.procedencia_id
 JOIN canales_reserva c ON r.canal_id = c.canal_id
-GROUP BY c.canal_id, c.nombre, YEAR(r.fecha_entrada);
+WHERE YEAR(r.fecha_entrada) = 2025
+GROUP BY p.descripcion, c.nombre;
 
+-- Vista 6: Vista estadia promedio en días (tarjeta PowerBi)
+CREATE VIEW vw_estadia_promedio_2025 AS
+SELECT 
+    AVG(DATEDIFF(fecha_salida, fecha_entrada)) AS estadia_promedio
+FROM reservas
+WHERE YEAR(fecha_entrada) = 2025;
 
+-- Vista 7: Vista  reservas vs quejas
+CREATE OR REPLACE VIEW vw_reservas_vs_quejas AS
+SELECT 'Reservas' AS tipo, COUNT(*) AS total FROM reservas
+UNION ALL
+SELECT 'Quejas' AS tipo, COUNT(*) AS total FROM quejas;
 
+-- Vista 8: Vista  total de reservas
+CREATE OR REPLACE VIEW vw_kpi_reservas_2025 AS
+SELECT COUNT(*) AS total_reservas
+FROM reservas
+WHERE YEAR(fecha_entrada) = 2025;
 -- ======================================
 -- FUNCIONES PERSONALIZADAS
 -- ======================================
