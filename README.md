@@ -61,7 +61,8 @@ Este diseño permite representar de forma estructurada los procesos principales 
 # 🛠️ Tecnologías utilizadas
 
 - MySQL  
-- MySQL Workbench  
+- MySQL Workbench
+- Power Bi 
 
 ---
 
@@ -83,14 +84,14 @@ Se recomienda seguir los siguientes pasos para recrear la base de datos:
 
 Para evitar conflictos con **claves foráneas**, los archivos `.csv` deben importarse en el siguiente orden:
 
-1. procedencias.csv  
-2. habitaciones.csv  
-3. servicios.csv  
-4. huespedes.csv  
-5. reservas.csv  
-6. reserva_servicio.csv  
-7. pagos.csv  
-8. quejas.csv  
+  
+1. habitaciones.csv  
+2. servicios.csv  
+3. huespedes.csv  
+4. reservas.csv  
+5. reserva_servicio.csv  
+6. pagos.csv  
+7. quejas.csv  
 
 Respetar el orden de carga de los archivos para mantener la **integridad referencial de la base de datos**.
 
@@ -117,16 +118,16 @@ El proyecto tiene 3 carpetas y un archivo `README.md`:
 
 3. **docs**: Contiene la documentación en PDF:  
    - `Hotelregional_JesicaLlanos.pdf`  
+   - `dashboard_hotelregional.pdf`
 
 4. **README.md**: Este archivo con la descripción y estructura del proyecto.  
 # 📊 Documentación
 
-El repositorio incluye un documento PDF con la explicación del diseño de la base de datos.
+El repositorio incluye los siguientes documentos en la carpeta `docs/`:
 
-En este documento se puede visualizar:
-
-- el **Diagrama Entidad–Relación (DER)**
-- la descripción de las **tablas**
-- la explicación de los **objetos implementados**
+- Un PDF con la explicación del diseño de la base de datos y el análisis de los datos.
+- Un PDF llamado `dashboard_hotelregional.pdf`que muestra únicamente gráficos del análisis, generados a partir de la conexión de la base de datos con Power BI.
 
 📄 [Ver documentación completa del proyecto](docs/Hotelregional_JesicaLlanos.pdf)
+
+[📊 Ver dashboard del proyecto](docs/dashboard_hotelregional.pdf)
